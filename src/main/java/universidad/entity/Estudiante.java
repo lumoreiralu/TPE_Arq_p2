@@ -1,9 +1,6 @@
-package Universidad;
+package universidad.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,32 +8,32 @@ import java.util.List;
 public class Estudiante {
     @Id
     private Integer dni;
-    @Column
+    @Column(nullable = false)
     private String nombre;
-    @Column
+    @Column(nullable = false)
     private String apellido;
-    @Column
+    @Column (nullable = false)
     private int edad;
-    @Column
+    @Column (nullable = false)
     private String genero;
-    @Column
+    @Column(nullable = false)
     private String ciudadResidencia;
-    @Column
-    private int num_libreta_uni;
-    @ManyToMany
-    private List<Carrera> carreras;
+    @Column(name="lu", unique = true, nullable = false)
+    private int libretaUnica;
+    @OneToMany(mappedBy = "estudiante", fetch = FetchType.LAZY)
+    private List<EstudianteCarrera> carreras;
 
     public Estudiante() {
     }
 
-    public Estudiante(Integer dni, String nombre, int edad, String apellido, String genero, String ciudadResidencia, int num_libreta_uni) {
+    public Estudiante(Integer dni, String nombre, String apellido, int edad, String genero, String ciudadResidencia, int libretaUnica) {
         this.dni = dni;
         this.nombre = nombre;
         this.edad = edad;
         this.apellido = apellido;
         this.genero = genero;
         this.ciudadResidencia = ciudadResidencia;
-        this.num_libreta_uni = num_libreta_uni;
+        this.libretaUnica = libretaUnica;
         this.carreras = new ArrayList<>();
     }
 
@@ -79,18 +76,28 @@ public class Estudiante {
     }
 
     public int getNum_libreta_uni() {
-        return num_libreta_uni;
+        return this.libretaUnica;
     }
 
-    public void setNum_libreta_uni(int num_libreta_uni) {
-        this.num_libreta_uni = num_libreta_uni;
+    public void setLibretaUnica(int num) {
+        this.libretaUnica = num;
     }
 
-    public List<Carrera> getCarreras() {
-        return carreras;
+    public List<EstudianteCarrera> getCarreras() {
+        return this.carreras;
     }
 
-    public void setCarreras(List<Carrera> carreras) {
-        this.carreras = carreras;
+
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "dni=" + dni +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", edad=" + edad +
+                ", genero='" + genero + '\'' +
+                ", ciudadResidencia='" + ciudadResidencia + '\'' +
+                ", num_lu=" + libretaUnica +
+                '}';
     }
 }

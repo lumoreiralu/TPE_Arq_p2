@@ -36,6 +36,20 @@
       <artifactId>byte-buddy</artifactId>
       <version>1.14.12</version>
     </dependency>
+    <!-- Apache Commons CSV, para leer los archivos .csv -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.11.0</version>
+    </dependency>
+
+    <!-- Source: https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.10.0</version>
+
+    </dependency>
 
   </dependencies>
 </project>

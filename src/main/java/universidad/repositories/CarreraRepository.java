@@ -12,9 +12,9 @@ public interface CarreraRepository {
     List<Carrera> findAll();
 
     //para el punto 2
-    List<CarreraInscriptosDTO> getCarrerasConInscriptosOrdenadas();
+    //List<CarreraInscriptosDTO> getCarrerasConInscriptosOrdenadas();
 
     //para el punto 3
-    List<ReporteCarreraDTO> getReporteCarreras();
+    //List<ReporteCarreraDTO> getReporteCarreras();
 
 }

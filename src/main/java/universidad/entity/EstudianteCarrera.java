@@ -83,7 +83,7 @@ public class EstudianteCarrera {
                 "id=" + id +
                 ", carrera=" + carrera.getNombre() +
                 ", estudiante=" + estudiante.getNombre() +
-                ", graduado=" + graduado +
+                ", graduacion=" + graduacion +
                 ", antiguedad=" + antiguedad +
                 '}';
     }

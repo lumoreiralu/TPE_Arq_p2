@@ -25,7 +25,7 @@ public class RepositoryFactory {
     }
 
     public EstudianteRepository getEstudianteRepository(){
-        return new EstudianteRepository(this.em);
+        return new EstudianteRepositoryImpl(this.em);
     }
 
     public CarreraRepository getCarreraRepository(){

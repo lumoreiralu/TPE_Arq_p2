@@ -39,13 +39,13 @@ public class CarreraRepositoryImpl implements CarreraRepository {
     }
 
     //TODO
-    @Override
-    public List<CarreraInscriptosDTO> getCarrerasConInscriptosOrdenadas() {
-        return List.of();
-    }
+    //@Override
+    //public List<CarreraInscriptosDTO> getCarrerasConInscriptosOrdenadas() {
+      //  return List.of();
+    //}
     //TODO
-    @Override
-    public List<ReporteCarreraDTO> getReporteCarreras() {
-        return List.of();
-    }
+   // @Override
+    //public List<ReporteCarreraDTO> getReporteCarreras() {
+      //  return List.of();
+    //}
 }

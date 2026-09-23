@@ -4,6 +4,7 @@ import universidad.entity.Estudiante;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import javax.persistence.TypedQuery;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository {
     private final EntityManager em;
@@ -34,11 +35,22 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     //    return List.of();
     //}
 
-    //TODO
-    //@Override
-    //public Estudiante findByLU(int numLU) {
-    //    return null;
-    //}
+    @Override
+    public Estudiante findByLU(int numLU) {
+        String jpql = "SELECT e FROM Estudiante e WHERE e.libretaUnica = :lu";
+        TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+        query.setParameter("lu", numLU);
+        List<Estudiante> resultado = query.getResultList();
+        return resultado.isEmpty() ? null : resultado.get(0);
+    }
+
+    @Override
+    public List<Estudiante> findByGenero(String genero) {
+        String jpql = "SELECT e FROM Estudiante e WHERE e.genero = :genero";
+        TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+        query.setParameter("genero", genero);
+        return query.getResultList();
+    }
 
     //TODO
     //@Override

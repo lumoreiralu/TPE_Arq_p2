@@ -11,8 +11,7 @@ public interface CarreraRepository {
     Carrera findById(Integer id);
     List<Carrera> findAll();
 
-    //para el punto 2
-    //List<CarreraInscriptosDTO> getCarrerasConInscriptosOrdenadas();
+    List<CarreraInscriptosDTO> findAllConInscriptosOrderedByCantInscriptosDesc();
 
     //para el punto 3
     //List<ReporteCarreraDTO> getReporteCarreras();

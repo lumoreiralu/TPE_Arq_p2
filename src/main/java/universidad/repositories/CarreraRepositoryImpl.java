@@ -1,5 +1,4 @@
 package universidad.repositories;
-
 import universidad.dto.CarreraInscriptosDTO;
 import universidad.dto.ReporteCarreraDTO;
 import universidad.entity.Carrera;
@@ -38,11 +37,17 @@ public class CarreraRepositoryImpl implements CarreraRepository {
         return query.getResultList();
     }
 
-    //TODO
-    //@Override
-    //public List<CarreraInscriptosDTO> getCarrerasConInscriptosOrdenadas() {
-      //  return List.of();
-    //}
+    @Override 
+    public List<CarreraInscriptosDTO> findAllConInscriptosOrderedByCantInscriptosDesc() {
+        String jpql = "SELECT new universidad.dto.CarreraInscriptosDTO(" +
+                        "c.nombre, c.id, COUNT(ec)) " +
+                        "FROM Carrera c " +
+                        "JOIN c.estudiantes ec " +
+                        "GROUP BY c.id, c.nombre " +
+                        "ORDER BY COUNT(ec) DESC";
+        TypedQuery<CarreraInscriptosDTO> query = em.createQuery(jpql, CarreraInscriptosDTO.class);
+        return query.getResultList();
+    }
     //TODO
    // @Override
     //public List<ReporteCarreraDTO> getReporteCarreras() {

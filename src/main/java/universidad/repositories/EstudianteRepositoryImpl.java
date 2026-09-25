@@ -29,11 +29,12 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
         return em.find(Estudiante.class, dni);
     }
 
-    //TODO
-    //@Override
-    //public List<Estudiante> findAllOrderedByApellido() {
-    //    return List.of();
-    //}
+    @Override 
+    public List<Estudiante> findAllOrderedByEdadAsc() {
+        String jpql = "SELECT e FROM Estudiante e ORDER BY e.edad ASC";
+        TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+        return query.getResultList();
+    }
 
     @Override
     public Estudiante findByLU(int numLU) {

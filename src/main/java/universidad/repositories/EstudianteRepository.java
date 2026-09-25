@@ -8,7 +8,7 @@ public interface EstudianteRepository {
 
     Estudiante save(Estudiante estudiante);
     Estudiante findByDni(Integer dni);
-    //List<Estudiante> findAllOrderedByApellido();
+    List<Estudiante> findAllOrderedByEdadAsc();
     Estudiante findByLU(int numLU);
     List<Estudiante> findByGenero(String genero);
     //List<Estudiante> findByCarreraAndCiudad(Integer idCarrera, String ciudad);

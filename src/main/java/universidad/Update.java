@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 public class Update {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("db_estudiantes");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TPE2");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 

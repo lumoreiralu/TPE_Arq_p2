@@ -14,4 +14,25 @@ public class ReporteCarreraDTO {
         this.inscripcion=inscripcion;
         this.graduacion=graduacion;
     }
+
+    public String getNombre_carrera() {
+        return this.nombre_carrera;
+    }
+
+    public String getNombre_alumno() {
+        return this.getNombre_alumno();
+    }
+
+    public String getApellido_alumno() {
+        return this.apellido_alumno;
+    }
+
+    public int getInscripcion() {
+        return this.inscripcion;
+    }
+
+    public int getGraduacion() {
+        return this.graduacion;
+    }
+
 }

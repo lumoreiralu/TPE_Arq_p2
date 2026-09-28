@@ -2,12 +2,13 @@ package universidad.entity;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class EstudianteCarrera {
 
     @EmbeddedId
-    private EstudianteCarreraPK id = new EstudianteCarreraPK();
+    private EstudianteCarreraPK id;
     @ManyToOne
     @MapsId("idCarrera")
     @JoinColumn(name = "id_carrera")
@@ -17,20 +18,18 @@ public class EstudianteCarrera {
     private Estudiante estudiante;
     @Column(nullable = false)
     private int inscripcion;
-    @Column(nullable = false)
-    private int graduacion;
-    @Column(nullable = false)
-    private int antiguedad;
+    @Column
+    private Integer graduacion;
 
     public EstudianteCarrera() {
     }
 
-    public EstudianteCarrera(Carrera carrera, Estudiante estudiante, int inscripcion, int graduacion, int antiguedad) {
+    public EstudianteCarrera(Carrera carrera, Estudiante estudiante, int graduacion, int antiguedad) {
         this.carrera = carrera;
         this.estudiante = estudiante;
-        this.inscripcion = inscripcion;
+        this.inscripcion = LocalDate.now().getYear();
         this.graduacion =graduacion;
-        this.antiguedad = antiguedad ;
+        this.id=new EstudianteCarreraPK(estudiante.getDni(), carrera.getId()) ;
     }
 
     public Carrera getCarrera() {

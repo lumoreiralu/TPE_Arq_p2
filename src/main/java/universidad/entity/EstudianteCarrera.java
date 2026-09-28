@@ -6,14 +6,14 @@ import javax.persistence.*;
 @Entity
 public class EstudianteCarrera {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EmbeddedId
+    private EstudianteCarreraPK id = new EstudianteCarreraPK();
     @ManyToOne
-    @JoinColumn(name = "id_carrera", nullable = false)
+    @MapsId("idCarrera")
+    @JoinColumn(name = "id_carrera")
     private Carrera carrera;
-    @ManyToOne
-    @JoinColumn(name = "id_estudiante", nullable = false)
+    @ManyToOne @MapsId("idEstudiante")
+    @JoinColumn(name = "id_estudiante")
     private Estudiante estudiante;
     @Column(nullable = false)
     private int inscripcion;
@@ -73,7 +73,7 @@ public class EstudianteCarrera {
         this.antiguedad = antiguedad;
     }
 
-    public Integer getId() {
+    public EstudianteCarreraPK getId() {
         return id;
     }
 

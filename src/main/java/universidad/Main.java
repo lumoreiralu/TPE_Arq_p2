@@ -2,8 +2,10 @@ package universidad;
 
 import universidad.dto.CarreraInscriptosDTO;
 import universidad.dto.EstudianteDTO;
+import universidad.entity.EstudianteCarrera;
 import universidad.factory.RepositoryFactory;
 import universidad.repositories.CarreraRepository;
+import universidad.repositories.EstudianteCarreraRepository;
 import universidad.repositories.EstudianteRepository;
 import universidad.entity.Carrera;
 import universidad.entity.Estudiante;
@@ -19,29 +21,58 @@ public class Main {
         EntityManager em = factory.getEntityManager();
 
         try{
-            BorrarDatos borrarDatos = new BorrarDatos(em);
-            borrarDatos.run();
+            //BorrarDatos borrarDatos = new BorrarDatos(em);
+            //borrarDatos.run();
 
-            CargarDatosIniciales cargarDatosIniciales = new CargarDatosIniciales(em);
-            cargarDatosIniciales.run();
+            //CargarDatosIniciales cargarDatosIniciales = new CargarDatosIniciales(em);
+            //cargarDatosIniciales.run();
 
-            EstudianteRepository estudianteRepo = factory.getEstudianteRepository();
+
+            EstudianteRepository estudianteRepo = factory.getEstudianteRepository(); //Es la instancia u objeto concreto que te devuelve la fábrica (`factory`). Es la herramienta que esta guardada en memoria para comunicarse con la base de datos.
+            EstudianteCarreraRepository estudianteCarreraRepo = factory.getEstudianteCarreraRepository();
             CarreraRepository carreraRepo = factory.getCarreraRepository();
 
-            // Prueba del punto C)
+
+
+
+            System.out.println("Prueba dar de alta un estudiante. Punto 2. a. ");
+            Estudiante nuevo = new Estudiante(39279226, "Lucia", "Moreira", 30, "F", "Tandil",  39279226); //creo un estudiante
+            em.getTransaction().begin();
+            estudianteRepo.save(nuevo);
+            em.getTransaction().commit();
+
+
+            System.out.println("Prueba de matricular un estudiante a una carrera. Punto 2. b. ");
+            // 2\. Buscar el estudiante y la carrera existentes en la BD
+            Estudiante estudiante11 = estudianteRepo.findByDni(30279226);
+            Carrera carrera11 = carreraRepo.findById(1);
+
+            if (estudiante11 != null && carrera11 != null) {
+                em.getTransaction().begin();
+                // Llamamos al método matricular de nuestro repositorio
+                estudianteCarreraRepo.matricular( estudiante11, carrera11,2020, 2022, 2);
+                em.getTransaction().commit();
+                System.out.println("¡Estudiante matriculado con éxito!");
+            }
+
+
+            System.out.println("Prueba del punto C");
             List<Estudiante> estudiantesOrdenadosPorEdad = estudianteRepo.findAllOrderedByEdadAsc();
             System.out.println("Estudiantes ordenados por edad ascendente:");
             for (Estudiante estudiante : estudiantesOrdenadosPorEdad) {
                 System.out.println(estudiante);
-            } 
+            }
 
 
 
-            // Prueba del punto d)
+            System.out.println("Prueba del punto d");
             Estudiante porLU = estudianteRepo.findByLU(34978);
             System.out.println("Buscado por LU 34978: " + porLU);
 
-            // Prueba del punto e)
+            Estudiante lu31733344 = estudianteRepo.findByLU(31733344);
+            System.out.println("Buscado por LU 31733344: " + lu31733344);
+
+            System.out.println("Prueba del punto e");
             List<Estudiante> mujeres = estudianteRepo.findByGenero("Female");
             System.out.println("Cantidad de estudiantes genero Female: " + mujeres.size());
 

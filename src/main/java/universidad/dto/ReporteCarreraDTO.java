@@ -1,38 +1,43 @@
 package universidad.dto;
 
 public class ReporteCarreraDTO {
-    private String nombre_carrera;
-    private String nombre_alumno;
-    private String apellido_alumno;
-    private int inscripcion;
-    private int graduacion;
+    private String nombreCarrera;
+    private int anio;
+    private long cantidadInscriptos;
+    private long cantidadEgresados;
 
-    public ReporteCarreraDTO(String nombre_carrera, String nombre_alumno, String apellido_alumno, int inscripcion, int graduacion){
-        this.nombre_carrera=nombre_carrera;
-        this.nombre_alumno=nombre_alumno;
-        this.apellido_alumno=apellido_alumno;
-        this.inscripcion=inscripcion;
-        this.graduacion=graduacion;
+    public ReporteCarreraDTO(String nombreCarrera, int anio, long cantidadInscriptos, long cantidadEgresados){
+        this.nombreCarrera=nombreCarrera;
+        this.anio = anio;
+        this.cantidadInscriptos = cantidadInscriptos;
+        this.cantidadEgresados = cantidadEgresados;
     }
 
     public String getNombre_carrera() {
-        return this.nombre_carrera;
+        return this.nombreCarrera;
     }
 
-    public String getNombre_alumno() {
-        return this.getNombre_alumno();
+    public int getAnio() {
+        return anio;
     }
 
-    public String getApellido_alumno() {
-        return this.apellido_alumno;
+    public long getCantidadInscriptos() {
+        return cantidadInscriptos;
     }
 
-    public int getInscripcion() {
-        return this.inscripcion;
+    public long getCantidadEgresados() {
+        return cantidadEgresados;
     }
 
-    public int getGraduacion() {
-        return this.graduacion;
+    public void setCantidadEgresados(long cantidadEgresados) {
+        this.cantidadEgresados = cantidadEgresados;
+    }
+
+// le da formato al texto de salida como una tabla
+    @Override
+    public String toString() {
+        return String.format("%-25s | Año: %-4d | Inscriptos: %-4d | Egresados: %-4d",
+                nombreCarrera, anio, cantidadInscriptos, cantidadEgresados);
     }
 
 }

@@ -5,6 +5,10 @@ import universidad.entity.Carrera;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarreraRepositoryImpl implements CarreraRepository {
@@ -48,9 +52,11 @@ public class CarreraRepositoryImpl implements CarreraRepository {
         TypedQuery<CarreraInscriptosDTO> query = em.createQuery(jpql, CarreraInscriptosDTO.class);
         return query.getResultList();
     }
-    //TODO
-   // @Override
-    //public List<ReporteCarreraDTO> getReporteCarreras() {
-      //  return List.of();
-    //}
+
+    @Override
+    public List<ReporteCarreraDTO> getReporteCarreras() {
+        String sql = "SELECT u, FROM carrera GROUP BY id,anio ";
+        TypedQuery<ReporteCarreraDTO> query = em.createQuery(sql, ReporteCarreraDTO.class);
+        return query.getResultList();
+    }
 }

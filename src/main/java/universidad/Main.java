@@ -2,6 +2,7 @@ package universidad;
 
 import universidad.dto.CarreraInscriptosDTO;
 import universidad.dto.EstudianteDTO;
+import universidad.dto.ReporteCarreraDTO;
 import universidad.factory.RepositoryFactory;
 import universidad.repositories.CarreraRepository;
 import universidad.repositories.EstudianteRepository;
@@ -52,7 +53,12 @@ public class Main {
             for (CarreraInscriptosDTO dto : carrerasConInscriptos) {
                 System.out.println(dto);
             }
-                  
+
+            List<ReporteCarreraDTO> reporte = carreraRepo.getReporteCarreras();
+            System.out.println("Reporte carrera:");
+            for (ReporteCarreraDTO dto : reporte) {
+                System.out.println(dto);
+            }
 
         }catch (Exception e){
             e.printStackTrace();

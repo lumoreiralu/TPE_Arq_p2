@@ -55,8 +55,19 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 
     @Override
     public List<ReporteCarreraDTO> getReporteCarreras() {
-        String sql = "SELECT u, FROM carrera GROUP BY id,anio ";
-        TypedQuery<ReporteCarreraDTO> query = em.createQuery(sql, ReporteCarreraDTO.class);
+        String jpql =
+                "SELECT new universidad.dto.ReporteCarreraDTO(" +
+                        "c.nombre, " +
+                        "ec.inscripcion, " +
+                        "COUNT(ec), " +
+                        "0L) " +
+                        "FROM Carrera c " +
+                        "JOIN c.estudiantes ec " +
+                        "GROUP BY c.nombre, ec.inscripcion " +
+                        "ORDER BY c.nombre ASC, ec.inscripcion ASC";
+        TypedQuery<ReporteCarreraDTO> query =
+                em.createQuery(jpql, ReporteCarreraDTO.class);
         return query.getResultList();
     }
+
 }

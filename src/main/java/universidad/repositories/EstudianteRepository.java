@@ -11,5 +11,5 @@ public interface EstudianteRepository {
     List<Estudiante> findAllOrderedByEdadAsc();
     Estudiante findByLU(int numLU);
     List<Estudiante> findByGenero(String genero);
-    //List<Estudiante> findByCarreraAndCiudad(Integer idCarrera, String ciudad);
+    List<Estudiante> findByCarreraAndCiudad(Integer idCarrera, String ciudad);
 }

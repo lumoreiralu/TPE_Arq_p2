@@ -52,7 +52,18 @@ public class Main {
             for (CarreraInscriptosDTO dto : carrerasConInscriptos) {
                 System.out.println(dto);
             }
-                  
+
+
+            // Prueba del punto 2g)
+            List<Estudiante> estudiantesPorCarreraYCiudad = estudianteRepo.findByCarreraAndCiudad(7, "Sámi");
+            System.out.println("\n- Estudiantes de la carrera (id: 7) filtrados por ciudad ('Sámi')-");
+            if (estudiantesPorCarreraYCiudad.isEmpty()) {
+                System.out.println("No se encontraron estudiantes para los criterios especificados.");
+            } else {
+                for (Estudiante e : estudiantesPorCarreraYCiudad) {
+                    System.out.println(e);
+                }
+            }
 
         }catch (Exception e){
             e.printStackTrace();

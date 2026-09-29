@@ -5,11 +5,8 @@ import universidad.entity.Carrera;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class CarreraRepositoryImpl implements CarreraRepository {
     private final EntityManager em;
@@ -55,19 +52,37 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 
     @Override
     public List<ReporteCarreraDTO> getReporteCarreras() {
-        String jpql =
-                "SELECT new universidad.dto.ReporteCarreraDTO(" +
-                        "c.nombre, " +
-                        "ec.inscripcion, " +
-                        "COUNT(ec), " +
-                        "0L) " +
-                        "FROM Carrera c " +
-                        "JOIN c.estudiantes ec " +
-                        "GROUP BY c.nombre, ec.inscripcion " +
-                        "ORDER BY c.nombre ASC, ec.inscripcion ASC";
-        TypedQuery<ReporteCarreraDTO> query =
-                em.createQuery(jpql, ReporteCarreraDTO.class);
-        return query.getResultList();
+        String sql =
+                "SELECT datos.nombre_carrera, datos.anio, " +
+                        "SUM(datos.inscriptos) AS cantidad_inscriptos, " +
+                        "SUM(datos.egresados) AS cantidad_egresados " +
+                "FROM (" +
+                    "SELECT c.nombre AS nombre_carrera, ec.inscripcion AS anio, " +
+                            "COUNT(*) AS inscriptos, 0 AS egresados " +
+                    "FROM Carrera c " +
+                    "JOIN EstudianteCarrera ec ON ec.id_carrera = c.id " +
+                    "GROUP BY c.id, c.nombre, ec.inscripcion " +
+                    "UNION ALL " +
+                    "SELECT c.nombre AS nombre_carrera, ec.graduacion AS anio, " +
+                            "0 AS inscriptos, COUNT(*) AS egresados " +
+                    "FROM Carrera c " +
+                    "JOIN EstudianteCarrera ec ON ec.id_carrera = c.id " +
+                    "WHERE ec.graduacion > 0 " +
+                    "GROUP BY c.id, c.nombre, ec.graduacion " +
+                ") datos " +
+                "GROUP BY datos.nombre_carrera, datos.anio " +
+                "ORDER BY datos.nombre_carrera ASC, datos.anio ASC";
+        List<Object[]> filas = em.createNativeQuery(sql).getResultList();
+        List<ReporteCarreraDTO> reporte = new ArrayList<>();
+        for (Object[] fila : filas) {
+            reporte.add(new ReporteCarreraDTO(
+                    (String) fila[0],
+                    ((Number) fila[1]).intValue(),
+                    ((Number) fila[2]).longValue(),
+                    ((Number) fila[3]).longValue()
+            ));
+        }
+        return reporte;
     }
 
 }

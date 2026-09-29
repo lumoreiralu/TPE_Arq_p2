@@ -78,7 +78,7 @@ public class Main {
             System.out.println("Cantidad de estudiantes genero Female: " + mujeres.size());
 
 
-            System.out.println("Prueba del punto f")
+            System.out.println("Prueba del punto f");
             List<CarreraInscriptosDTO> carrerasConInscriptos = carreraRepo.findAllConInscriptosOrderedByCantInscriptosDesc();
             System.out.println("Carreras con inscriptos ordenadas por cantidad de inscriptos descendente:");
             for (CarreraInscriptosDTO dto : carrerasConInscriptos) {
@@ -86,7 +86,7 @@ public class Main {
             }
 
 
-            System.out.println("Prueba del punto g")
+            System.out.println("Prueba del punto g");
             List<Estudiante> estudiantesPorCarreraYCiudad = estudianteRepo.findByCarreraAndCiudad(7, "Sámi");
             System.out.println("\n- Estudiantes de la carrera (id: 7) filtrados por ciudad ('Sámi')-");
             if (estudiantesPorCarreraYCiudad.isEmpty()) {
@@ -97,7 +97,7 @@ public class Main {
                 }
             }
 
-            System.out.println("Prueba del punto 3")
+            System.out.println("Prueba del punto 3");
             List<ReporteCarreraDTO> reporte = carreraRepo.getReporteCarreras();
             System.out.println("Reporte carrera:");
             for (ReporteCarreraDTO dto : reporte) {

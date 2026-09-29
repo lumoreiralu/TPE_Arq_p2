@@ -1,16 +1,14 @@
 package universidad;
 
 import universidad.dto.CarreraInscriptosDTO;
-import universidad.dto.EstudianteDTO;
-import universidad.entity.EstudianteCarrera;
+import universidad.dto.ReporteCarreraDTO;
 import universidad.factory.RepositoryFactory;
 import universidad.repositories.CarreraRepository;
 import universidad.repositories.EstudianteCarreraRepository;
 import universidad.repositories.EstudianteRepository;
 import universidad.entity.Carrera;
 import universidad.entity.Estudiante;
-import utils.BorrarDatos;
-import utils.CargarDatosIniciales;
+
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -76,8 +74,8 @@ public class Main {
             List<Estudiante> mujeres = estudianteRepo.findByGenero("Female");
             System.out.println("Cantidad de estudiantes genero Female: " + mujeres.size());
 
-            
-            // Prueba del punto f)
+
+            System.out.println("Prueba del punto f");
             List<CarreraInscriptosDTO> carrerasConInscriptos = carreraRepo.findAllConInscriptosOrderedByCantInscriptosDesc();
             System.out.println("Carreras con inscriptos ordenadas por cantidad de inscriptos descendente:");
             for (CarreraInscriptosDTO dto : carrerasConInscriptos) {
@@ -85,7 +83,7 @@ public class Main {
             }
 
 
-            // Prueba del punto 2g)
+            System.out.println("Prueba del punto g");
             List<Estudiante> estudiantesPorCarreraYCiudad = estudianteRepo.findByCarreraAndCiudad(7, "Sámi");
             System.out.println("\n- Estudiantes de la carrera (id: 7) filtrados por ciudad ('Sámi')-");
             if (estudiantesPorCarreraYCiudad.isEmpty()) {
@@ -93,6 +91,17 @@ public class Main {
             } else {
                 for (Estudiante e : estudiantesPorCarreraYCiudad) {
                     System.out.println(e);
+                }
+            }
+
+            System.out.println("Prueba del punto 3");
+            List<ReporteCarreraDTO> reporte = carreraRepo.getReporteCarreras();
+
+            if (reporte.isEmpty()) {
+                System.out.println("No se encontraron registros.");
+            } else {
+                for (ReporteCarreraDTO fila : reporte) {
+                    System.out.println(fila);
                 }
             }
 

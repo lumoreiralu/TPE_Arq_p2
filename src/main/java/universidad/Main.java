@@ -3,6 +3,7 @@ package universidad;
 import universidad.dto.CarreraInscriptosDTO;
 import universidad.dto.EstudianteDTO;
 import universidad.entity.EstudianteCarrera;
+import universidad.dto.ReporteCarreraDTO;
 import universidad.factory.RepositoryFactory;
 import universidad.repositories.CarreraRepository;
 import universidad.repositories.EstudianteCarreraRepository;
@@ -84,6 +85,11 @@ public class Main {
                 System.out.println(dto);
             }
 
+            List<ReporteCarreraDTO> reporte = carreraRepo.getReporteCarreras();
+            System.out.println("Reporte carrera:");
+            for (ReporteCarreraDTO dto : reporte) {
+                System.out.println(dto);
+            }
 
             // Prueba del punto 2g)
             List<Estudiante> estudiantesPorCarreraYCiudad = estudianteRepo.findByCarreraAndCiudad(7, "Sámi");

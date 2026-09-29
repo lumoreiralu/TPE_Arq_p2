@@ -56,7 +56,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     @Override
     public List<Estudiante> findByCarreraAndCiudad(Integer idCarrera, String ciudad) {
         String jpql = "SELECT ec.estudiante FROM EstudianteCarrera ec " +
-                "WHERE ec.carrera.id = :idCarrera AND ec.estudiante.ciudadResidencia = :ciudad";
+                "WHERE ec.carrera.id = :idCarrera AND LOWER(ec.estudiante.ciudadResidencia) = LOWER(:ciudad)";
         TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
         query.setParameter("idCarrera", idCarrera);
         query.setParameter("ciudad", ciudad);

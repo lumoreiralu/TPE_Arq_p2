@@ -13,7 +13,7 @@ public class ReporteCarreraDTO {
         this.cantidadEgresados = cantidadEgresados;
     }
 
-    public String getNombre_carrera() {
+    public String getNombreCarrera() {
         return this.nombreCarrera;
     }
 

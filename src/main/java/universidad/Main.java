@@ -65,7 +65,6 @@ public class Main {
             }
 
 
-
             System.out.println("Prueba del punto d");
             Estudiante porLU = estudianteRepo.findByLU(34978);
             System.out.println("Buscado por LU 34978: " + porLU);
@@ -73,25 +72,21 @@ public class Main {
             Estudiante lu31733344 = estudianteRepo.findByLU(31733344);
             System.out.println("Buscado por LU 31733344: " + lu31733344);
 
+
             System.out.println("Prueba del punto e");
             List<Estudiante> mujeres = estudianteRepo.findByGenero("Female");
             System.out.println("Cantidad de estudiantes genero Female: " + mujeres.size());
 
-            
-            // Prueba del punto f)
+
+            System.out.println("Prueba del punto f")
             List<CarreraInscriptosDTO> carrerasConInscriptos = carreraRepo.findAllConInscriptosOrderedByCantInscriptosDesc();
             System.out.println("Carreras con inscriptos ordenadas por cantidad de inscriptos descendente:");
             for (CarreraInscriptosDTO dto : carrerasConInscriptos) {
                 System.out.println(dto);
             }
 
-            List<ReporteCarreraDTO> reporte = carreraRepo.getReporteCarreras();
-            System.out.println("Reporte carrera:");
-            for (ReporteCarreraDTO dto : reporte) {
-                System.out.println(dto);
-            }
 
-            // Prueba del punto 2g)
+            System.out.println("Prueba del punto g")
             List<Estudiante> estudiantesPorCarreraYCiudad = estudianteRepo.findByCarreraAndCiudad(7, "Sámi");
             System.out.println("\n- Estudiantes de la carrera (id: 7) filtrados por ciudad ('Sámi')-");
             if (estudiantesPorCarreraYCiudad.isEmpty()) {
@@ -100,6 +95,13 @@ public class Main {
                 for (Estudiante e : estudiantesPorCarreraYCiudad) {
                     System.out.println(e);
                 }
+            }
+
+            System.out.println("Prueba del punto 3")
+            List<ReporteCarreraDTO> reporte = carreraRepo.getReporteCarreras();
+            System.out.println("Reporte carrera:");
+            for (ReporteCarreraDTO dto : reporte) {
+                System.out.println(dto);
             }
 
         }catch (Exception e){

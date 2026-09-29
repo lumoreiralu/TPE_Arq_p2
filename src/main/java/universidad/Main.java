@@ -21,11 +21,11 @@ public class Main {
         EntityManager em = factory.getEntityManager();
 
         try{
-            //BorrarDatos borrarDatos = new BorrarDatos(em);
-            //borrarDatos.run();
+            BorrarDatos borrarDatos = new BorrarDatos(em);
+            borrarDatos.run();
 
-            //CargarDatosIniciales cargarDatosIniciales = new CargarDatosIniciales(em);
-            //cargarDatosIniciales.run();
+            CargarDatosIniciales cargarDatosIniciales = new CargarDatosIniciales(em);
+            cargarDatosIniciales.run();
 
 
             EstudianteRepository estudianteRepo = factory.getEstudianteRepository(); //Es la instancia u objeto concreto que te devuelve la fábrica (`factory`). Es la herramienta que esta guardada en memoria para comunicarse con la base de datos.
@@ -44,13 +44,13 @@ public class Main {
 
             System.out.println("Prueba de matricular un estudiante a una carrera. Punto 2. b. ");
             // 2\. Buscar el estudiante y la carrera existentes en la BD
-            Estudiante estudiante11 = estudianteRepo.findByDni(30279226);
+            Estudiante estudiante11 = estudianteRepo.findByDni(39279226);
             Carrera carrera11 = carreraRepo.findById(1);
 
             if (estudiante11 != null && carrera11 != null) {
                 em.getTransaction().begin();
                 // Llamamos al método matricular de nuestro repositorio
-                estudianteCarreraRepo.matricular( estudiante11, carrera11,2020, 2022, 2);
+                estudianteCarreraRepo.matricular( estudiante11, carrera11, null);
                 em.getTransaction().commit();
                 System.out.println("¡Estudiante matriculado con éxito!");
             }

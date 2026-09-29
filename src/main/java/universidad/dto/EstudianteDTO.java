@@ -2,7 +2,7 @@ package universidad.dto;
 
 public class EstudianteDTO {
 
-    private int dni;
+    private Integer dni;
     private String nombre;
     private String genero;
     private int lu;

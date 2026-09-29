@@ -16,14 +16,14 @@ public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraReposit
     }
 
     @Override
-    public EstudianteCarrera matricular(Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad) {
+    public EstudianteCarrera matricular(Estudiante estudiante, Carrera carrera, Integer graduacion) {
         Estudiante eManaged = em.find(Estudiante.class, estudiante.getDni());
         Carrera cManaged = em.find(Carrera.class, carrera.getId());
         if (eManaged == null || cManaged == null) {
             throw new IllegalArgumentException("El estudiante o la carrera no existen en la base de datos.");
         }
 
-        EstudianteCarrera ec = new EstudianteCarrera(cManaged, eManaged, inscripcion, graduacion, antiguedad);
+        EstudianteCarrera ec = new EstudianteCarrera(cManaged, eManaged, graduacion);
         em.persist(ec);
         return ec;
     }

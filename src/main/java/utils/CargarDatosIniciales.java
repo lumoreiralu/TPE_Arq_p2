@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -42,22 +43,24 @@ public class CargarDatosIniciales {
     }
 
     private void cargarCarreras(String resourcePath) {
-        try (InputStream is = getClass().getResourceAsStream(resourcePath);
+        try (InputStream is = mustGetResource(resourcePath);
              Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
              CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(reader)) {
                 for (CSVRecord row : parser) {
                     Integer idCarrera = Integer.parseInt(row.get("id_carrera"));
                     String nombre = row.get("carrera");
                     int duracion = Integer.parseInt(row.get("duracion"));
-                    Carrera c = new Carrera(nombre, duracion); em.persist(c);
+                    Carrera c = new Carrera(idCarrera, nombre, duracion);
+
+                    em.persist(c);
                 }
         } catch (Exception e) {
-            System.err.println("Error al cargar carreras: " + e.getMessage());
+            throw new RuntimeException("Fallo al cargar el archivo. Deteniendo proceso.", e);
         }
     }
 
     private void cargarEstudiantes(String resourcePath) {
-        try (InputStream is = getClass().getResourceAsStream(resourcePath);
+        try (InputStream is = mustGetResource(resourcePath);
              Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
              CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(reader)) {
                 for (CSVRecord row : parser) {
@@ -72,13 +75,13 @@ public class CargarDatosIniciales {
                     Estudiante e = new Estudiante(dni, nombre, apellido, edad, genero, ciudad, lu);
                     em.persist(e);
                 }
-        } catch (Exception e) {
-            System.err.println("Error al cargar estudiantes: " + e.getMessage());
+        } catch (Exception e){
+            throw new RuntimeException("Fallo al cargar el archivo. Deteniendo proceso.", e);
         }
     }
 
     private void cargarEstudiantesCarreras(String resourcePath) {
-        try (InputStream is = getClass().getResourceAsStream(resourcePath);
+        try (InputStream is = mustGetResource(resourcePath);
              Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
              CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(reader)) {
                 for (CSVRecord row : parser) {
@@ -86,16 +89,18 @@ public class CargarDatosIniciales {
                     int idEstudiante = Integer.parseInt(row.get("id_estudiante"));
                     int idCarrera = Integer.parseInt(row.get("id_carrera"));
                     int inscripcion = Integer.parseInt(row.get("inscripcion"));
-                    int graduacion = Integer.parseInt(row.get("graduacion"));
-                    int antiguedad = Integer.parseInt(row.get("antiguedad"));
+                    Integer graduacion = Integer.parseInt(row.get("graduacion"));
+
                     // Buscar las entidades persistidas en el contexto de JPA
                     Estudiante e = em.find(Estudiante.class, idEstudiante);
                     Carrera c = em.find(Carrera.class, idCarrera);
                     if (e != null && c != null) {
-                        EstudianteCarrera ec = new EstudianteCarrera(c, e, inscripcion, graduacion, antiguedad); em.persist(ec);
+                        EstudianteCarrera ec = new EstudianteCarrera(c, e, inscripcion, graduacion);
+                        em.merge(ec);
                     }
                 }
-        } catch (Exception e) { System.err.println("Error al cargar inscripciones: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("Fallo al cargar el archivo. Deteniendo proceso.", e);
         }
     }
 

@@ -50,7 +50,7 @@ public class Main {
             if (estudiante11 != null && carrera11 != null) {
                 em.getTransaction().begin();
                 // Llamamos al método matricular de nuestro repositorio
-                estudianteCarreraRepo.matricular( estudiante11, carrera11,2020, 2022, 2);
+                estudianteCarreraRepo.matricular( estudiante11, carrera11,2020, 2022);
                 em.getTransaction().commit();
                 System.out.println("¡Estudiante matriculado con éxito!");
             }

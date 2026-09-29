@@ -2,7 +2,6 @@ package universidad.entity;
 
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 public class EstudianteCarrera {
@@ -24,10 +23,10 @@ public class EstudianteCarrera {
     public EstudianteCarrera() {
     }
 
-    public EstudianteCarrera(Carrera carrera, Estudiante estudiante, int graduacion, int antiguedad) {
+    public EstudianteCarrera(Carrera carrera, Estudiante estudiante, int inscripcion, Integer graduacion) {
         this.carrera = carrera;
         this.estudiante = estudiante;
-        this.inscripcion = LocalDate.now().getYear();
+        this.inscripcion = inscripcion;
         this.graduacion =graduacion;
         this.id=new EstudianteCarreraPK(estudiante.getDni(), carrera.getId()) ;
     }
@@ -48,7 +47,7 @@ public class EstudianteCarrera {
         this.estudiante = estudiante;
     }
 
-    public int isGraduacion() {
+    public Integer getGraduacion() {
         return this.graduacion;
     }
 
@@ -60,17 +59,10 @@ public class EstudianteCarrera {
         this.inscripcion = inscripcion;
     }
 
-    public void setGraduacion(int graduacion) {
+    public void setGraduacion(Integer graduacion) {
         this.graduacion = graduacion;
     }
 
-    public int getAntiguedad() {
-        return antiguedad;
-    }
-
-    public void setAntiguedad(int antiguedad) {
-        this.antiguedad = antiguedad;
-    }
 
     public EstudianteCarreraPK getId() {
         return id;
@@ -83,7 +75,6 @@ public class EstudianteCarrera {
                 ", carrera=" + carrera.getNombre() +
                 ", estudiante=" + estudiante.getNombre() +
                 ", graduacion=" + graduacion +
-                ", antiguedad=" + antiguedad +
                 '}';
     }
 }

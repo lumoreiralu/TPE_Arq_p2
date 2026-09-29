@@ -7,8 +7,8 @@ import universidad.entity.EstudianteCarrera;
 import java.util.List;
 
 public interface EstudianteCarreraRepository {
-    EstudianteCarrera matricular(Estudiante estudiante, Carrera carrera, int inscripcion, int graduacion, int antiguedad);
+    EstudianteCarrera matricular(Estudiante estudiante, Carrera carrera, int inscripcion, Integer graduacion);
     EstudianteCarrera save(EstudianteCarrera estudianteCarrera);
-    EstudianteCarrera findById(Integer id);
+    EstudianteCarrera findByIds(Integer dni,Integer idCarrera);
     List<EstudianteCarrera> findAll();
 }

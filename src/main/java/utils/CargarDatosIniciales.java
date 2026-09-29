@@ -76,7 +76,13 @@ public class CargarDatosIniciales {
             System.err.println("Error al cargar estudiantes: " + e.getMessage());
         }
     }
-
+    private static Integer parseIntegerNullable(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return null;
+        }
+        int parsed = Integer.parseInt(value.trim());
+        return (parsed > 0) ? parsed : null;
+    }
     private void cargarEstudiantesCarreras(String resourcePath) {
         try (InputStream is = getClass().getResourceAsStream(resourcePath);
              Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
@@ -86,13 +92,13 @@ public class CargarDatosIniciales {
                     int idEstudiante = Integer.parseInt(row.get("id_estudiante"));
                     int idCarrera = Integer.parseInt(row.get("id_carrera"));
                     int inscripcion = Integer.parseInt(row.get("inscripcion"));
-                    int graduacion = Integer.parseInt(row.get("graduacion"));
-                    int antiguedad = Integer.parseInt(row.get("antiguedad"));
+                    Integer graduacion = parseIntegerNullable(row.get("graduacion"));
+                    //int antiguedad = Integer.parseInt(row.get("antiguedad"));
                     // Buscar las entidades persistidas en el contexto de JPA
                     Estudiante e = em.find(Estudiante.class, idEstudiante);
                     Carrera c = em.find(Carrera.class, idCarrera);
                     if (e != null && c != null) {
-                        EstudianteCarrera ec = new EstudianteCarrera(c, e, inscripcion, graduacion, antiguedad); em.persist(ec);
+                        EstudianteCarrera ec = new EstudianteCarrera(c, e, inscripcion, graduacion); em.persist(ec);
                     }
                 }
         } catch (Exception e) { System.err.println("Error al cargar inscripciones: " + e.getMessage());

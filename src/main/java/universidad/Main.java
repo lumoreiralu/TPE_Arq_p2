@@ -1,8 +1,6 @@
 package universidad;
 
 import universidad.dto.CarreraInscriptosDTO;
-import universidad.dto.EstudianteDTO;
-import universidad.entity.EstudianteCarrera;
 import universidad.dto.ReporteCarreraDTO;
 import universidad.factory.RepositoryFactory;
 import universidad.repositories.CarreraRepository;

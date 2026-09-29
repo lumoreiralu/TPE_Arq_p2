@@ -17,13 +17,9 @@ public class BorrarDatos {
 
             em.createQuery("DELETE FROM Carrera").executeUpdate();
             em.createQuery("DELETE FROM Estudiante").executeUpdate();
-            
-            em.createNativeQuery(
-                "ALTER TABLE EstudianteCarrera AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery(
-                "ALTER TABLE Carrera AUTO_INCREMENT = 1").executeUpdate();
 
             em.getTransaction().commit();
+            em.clear();
             System.out.println("Borrado completo finalizado con exito");
         } catch (Exception e){
             if(em.getTransaction().isActive()){

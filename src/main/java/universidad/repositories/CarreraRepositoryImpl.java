@@ -29,6 +29,7 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 
     @Override
     public Carrera findById(Integer id) {
+
         return em.find(Carrera.class, id);
     }
 

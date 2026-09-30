@@ -11,6 +11,7 @@ import universidad.entity.Estudiante;
 import utils.BorrarDatos;
 import utils.CargarDatosIniciales;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -35,7 +36,7 @@ public class Main {
 
 
             System.out.println("Prueba dar de alta un estudiante. Punto 2. a. ");
-            Estudiante nuevo = new Estudiante(39279226, "Lucia", "Moreira", 30, "F", "Tandil",  39279226); //creo un estudiante
+            Estudiante nuevo = new Estudiante(1234, "Ana", "Lopez", "F", "Azul", 109845, LocalDate.of(1996,04,17)); //creo un estudiante
             em.getTransaction().begin();
             estudianteRepo.save(nuevo);
             em.getTransaction().commit();
